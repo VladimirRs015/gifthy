@@ -1,0 +1,37 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 22%;
+
+  grid-template-areas:
+    "header header"
+    "main aside";
+}
+
+@media screen and (max-width: 765px) {
+  .layout {
+    grid-template-areas:
+      "header header"
+      "main main"
+      "aside aside";
+  }
+}
+
+.aside {
+  position: sticky;
+  top: 0;
+  grid-area: aside;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+ul {
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.main {
+  grid-area: main;
+  min-height: calc(100vh + 300px);
+}

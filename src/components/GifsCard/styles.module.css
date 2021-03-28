@@ -1,0 +1,12 @@
+.card{
+    position: relative;
+    outline:1px solid red
+}
+.card_media{
+    height:100%;
+}
+.card_images { 
+    width:100%;
+    object-fit: cover;
+    height:100%;
+}
