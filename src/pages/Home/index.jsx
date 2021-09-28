@@ -1,4 +1,4 @@
-import React, { useRef,useCallback } from "react";
+import React, { useRef, useCallback } from "react";
 import useObserver from "hooks/useObjserver";
 import useGifs from "hooks/useGifs";
 import debounce from "just-debounce";
@@ -13,7 +13,7 @@ export default function Home() {
     distance: "100px",
   });
 
-  const { isLoading, nextPage } = useGifs({});
+  const { isLoading, nextPage, isNextPageLoading } = useGifs({});
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getNextPage = useCallback(debounce(nextPage, 400));
@@ -21,6 +21,11 @@ export default function Home() {
   if (isNeerScreen) !isLoading && getNextPage();
 
   return (
-    <HomePage isLoading={isLoading} reference={reference} nextPage={getNextPage} />
+    <HomePage
+      isLoading={isLoading}
+      isNextPageLoading={isNextPageLoading}
+      reference={reference}
+      nextPage={getNextPage}
+    />
   );
 }

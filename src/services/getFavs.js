@@ -1,28 +1,20 @@
 // const ENDPOINT = "http://localhost:8080/favs";
 
-const ENDPOINT = "http://localhost:8080/favs";
+const ENDPOINT = "http://localhost:8080/api/v1/favs";
 
-export async function getFavs({ jwt, isMounted }) {
-  try {
-    const res = await fetch(ENDPOINT, {
-      methods: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: jwt,
-      },
-      // signal: !isMounted ? new AbortController().abort() : null,
-    });
-
-    if (!res.ok)
-      throw new Error(
-        res.statusText || "something was wrong during the request"
-      );
-
-    const { favs } = await res.json();
-    return favs;
-  } catch (error) {
-    throw new Error(error);
-  }
+export async function getFavs({ jwt, signal }) {
+  return fetch(ENDPOINT, {
+    methods: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: jwt,
+    },
+    signal,
+  })
+    .then((res) => res.json())
+    .catch(error => {
+      throw new Error(error);
+    })
 }
 
 export function addToFav({ id, jwt }) {

@@ -1,9 +1,11 @@
-const END_POINT = "http://localhost:8080/login";
+const END_POINT = "http://localhost:8080/api/login";
+
 const deafultParams = {
   email: "",
   password: ""
 }
-export async function Login(data = deafultParams) {
+
+export async function Login(data = deafultParams,signal) {
 
   try {
     const res = await fetch(END_POINT, {
@@ -12,6 +14,7 @@ export async function Login(data = deafultParams) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
+      signal,
     });
     if(!res.ok || res.status > 300) throw new Error(res.statusText || "Wrong e-mail or password");
 
@@ -24,11 +27,12 @@ export async function Login(data = deafultParams) {
   }
 }
 
-export async function Register(data) {
+export async function Register(data = deafultParams, signal){
   try {
     const res = await fetch(END_POINT, {
       body: JSON.stringify(data),
       method: "POST",
+      signal
     });
     if (res.ok)
       return true

@@ -5,7 +5,7 @@ import GifsList from "components/GifsList/GifsList";
 // import Helmet from "react-helmet";
 import "./styles.css";
 
-function HomePage({ isLoading, reference, nextPage }) {
+function HomePage({ isLoading, reference, nextPage, isNextPageLoading }) {
   return (
     <>
       {/* <Helmet>
@@ -20,7 +20,7 @@ function HomePage({ isLoading, reference, nextPage }) {
         <HomeAside />
       </div>
       <div id="intersectToFetch" ref={reference}>
-        {isLoading && <Loader />}
+        {isNextPageLoading && <Loader />}
         <button onClick={nextPage}>Fetch</button>
       </div>
     </>

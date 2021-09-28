@@ -1,46 +1,31 @@
-import React, { useContext } from "react";
+import React from "react";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { Image, Card, CardMedia } from "./styles";
 import { useLocation } from "wouter";
-import Favs from "components/FavsButton/Favs";
+import Fav from "components/FavsButton/Favs";
 import styles from "./styles.module.css";
-import useFavs from "hooks/useFavs";
 
-
-import { ctx as appContext } from "contexts/AppContext";
-import { ctx as authContext } from "contexts/authContext";
-
-function GifCard({ imagesrc, title, id, isFav }) {
-  const { setAppModalState } = useContext(appContext);
-  const { isLogged } = useContext(authContext);
-
-  const { toggleFavorite } = useFavs();
-
+function GifCard({ imagesrc, title, id, isFav, onClick }) {
   const [, pushLocation] = useLocation();
 
   return (
-    <div className={styles.card}>
-      <div className={styles.card_media}>
-        <img
+    <Card>
+      <CardMedia>
+        <Image
           className={styles.card_images}
-          lazy="true"
-          // src={imagesrc}
+          loading="lazy"
+          src={imagesrc}
           alt={title}
           onClick={() => pushLocation(`/gifs/single/${id}`)}
         />
-      </div>
-      <Favs
-        isFav={isFav}
-        onClick={() => {
-          if (!isLogged) return setAppModalState(true);
-          toggleFavorite({
-            id,
-            isFav,
-          });
-        }}
-      />
-    </div>
+      </CardMedia>
+      <Fav onClick={onClick}>
+        {isFav ? <FaHeart size="28" /> : <FaRegHeart size="28" />}
+      </Fav>
+    </Card>
   );
 }
 
 export default React.memo(GifCard, (prevProps, nextProps) => {
-  return prevProps.isFav !== nextProps.isFav;
+  return false;
 });
